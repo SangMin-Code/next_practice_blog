@@ -1,8 +1,15 @@
-import Image from 'next/image'
+import FeaturedPosts from '@/components/FeaturedPosts'
+import Hero from '@/components/Hero'
 
-
-export default function Home() {
+export default async function Home() {
+  
+  // const feature = await FeaturedPosts();
   return (
-    <main className="bg-gray-500">Home</main>
+    <section>
+      <Hero/>
+       {/* @ts-expect-error Async Server Component */}
+      <FeaturedPosts/>
+      {/* {feature} */}
+    </section>
   )
 }
