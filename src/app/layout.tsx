@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import './globals.css'
 import { Open_Sans } from 'next/font/google'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 
 export const metadata = {
@@ -17,29 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={sans.className}>
       <body className="flex flex-col m-auto max-w-screen-xl h-screen">
-        <header className="flex justify-between items-center p-4">
-          <div>
-            <nav className="text-2xl font-bold">
-              <Link href={'/'}>My Blog</Link>
-            </nav>
-          </div>
-          <div className='flex gap-x-4 text-sm font-bold'>
-            <nav>
-              <Link href={'/'}>Home</Link>
-            </nav>
-            <nav>
-              <Link href={'/about'}>About</Link>
-            </nav>
-            <nav>
-              <Link href={'/posts'}>Posts</Link>
-            </nav>
-            <nav>
-              <Link href={'/contact'}>Contact</Link>
-            </nav>
-          </div>
-        </header>
-        {children}
-        <footer className="mt-auto bg-black text-white text-center">this is footer</footer>
+        <Header/>
+        <main className='grow'>
+          {children}
+        </main>
+        <Footer/>
       </body>
     </html>
   )
