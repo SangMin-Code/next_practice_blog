@@ -1,3 +1,4 @@
+import CarouselPost from '@/components/CarouselPost'
 import FeaturedPosts from '@/components/FeaturedPosts'
 import Hero from '@/components/Hero'
 
@@ -9,7 +10,8 @@ export default async function Home() {
       <Hero/>
        {/* @ts-expect-error Async Server Component */}
       <FeaturedPosts/>
-      {/* {feature} */}
+       {/* @ts-expect-error Async Server Component */}
+      <CarouselPost/>
     </section>
   )
 }
