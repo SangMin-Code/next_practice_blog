@@ -2,15 +2,14 @@
 
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import Banner, { BannerData } from "./Banner";
+import { sendContactEmail } from "@/service/contact";
+import { EmailData } from "@/service/email";
 
-type Form = {
-    from:string;
-    subject:string;
-    messasge:string;
-};
+const DEFAULT_DATA =  {from:'',subject:'',message:''}
+
 
 const ContactForm =()=>{
-    const [form, setForm] = useState<Form>({from:'',subject:'',messasge:''});
+    const [form, setForm] = useState<EmailData>(DEFAULT_DATA);
     const [banner, setBanner] = useState<BannerData | null>(null);
 
 
@@ -21,8 +20,14 @@ const ContactForm =()=>{
 
     const onSubmit = (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        setBanner({message:'성공', 'state':'success'})
-        setTimeout(()=>{setBanner(null)},3000)
+        sendContactEmail(form).then(()=>{
+            setBanner({message:'메일을 성공적으로 보냈습니다.', 'state':'success'})
+            setForm(DEFAULT_DATA);
+        }).catch(()=>{
+            setBanner({message:'메일전송에 실패했습니다.', 'state':'error'})
+        }).finally(()=>{
+            setTimeout(()=>{setBanner(null)},3000)
+        });
     }
 
     return(
@@ -38,7 +43,8 @@ const ContactForm =()=>{
                     required 
                     autoFocus 
                     value={form.from} 
-                    onChange={onChange}/>
+                    onChange={onChange}
+                    className="text-black"/>
                 <label htmlFor="title" className="font-semibold">Subject</label>
                 <input 
                     type="text"  
@@ -46,14 +52,15 @@ const ContactForm =()=>{
                     name="subject" 
                     required 
                     value={form.subject} 
-                    onChange={onChange}/>
+                    onChange={onChange}
+                    className="text-black"/>
                 <label htmlFor="message" className="font-semibold">Message</label>
                 <textarea 
                     rows={10}  
                     id="message" 
                     name="message" 
                     required 
-                    value={form.from} 
+                    value={form.message} 
                     onChange={onChange}
                     className="text-black"/>
                 <button className="bg-yellow-300 text-black font-bold hover:bg-yellow-400">Submit</button>

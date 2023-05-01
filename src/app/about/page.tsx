@@ -2,6 +2,11 @@ import Hero from "@/components/Hero";
 
 const TITLE_CLASS = 'text-2xl font-bold text-gray-800 my-2'
 
+export const metadata = {
+    title: 'About me',
+    description: 'Career',
+  }
+
 export default function About(){
     return(
         <>
